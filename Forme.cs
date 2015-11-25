@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    class  Forme 
+    abstract class Forme 
     {
+        public Bloc[] blocs = new Bloc[4];
+
     }
 }

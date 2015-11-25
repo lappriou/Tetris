@@ -23,6 +23,9 @@ namespace Tetris
         public MainWindow()
         {
             InitializeComponent();
+            Jeu_Tetris tetris = new Jeu_Tetris();
+            
+            Forme Carre = new Forme [4]{ new Bloc { X = 4, Y = 20 }, new Bloc { X = 5, Y = 20 }, new Bloc { X = 4, Y = 19 }, new Bloc { X = 5, Y = 19 } };
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

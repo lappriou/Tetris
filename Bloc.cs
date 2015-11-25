@@ -8,5 +8,8 @@ namespace Tetris
 {
     class Bloc
     {
+        public int  X { get; set; }
+        public int Y { get; set; }
+
     }
 }

@@ -64,8 +64,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bloc.cs" />
+    <Compile Include="Carree.cs" />
     <Compile Include="Forme.cs" />
     <Compile Include="Jeu_Tetris.cs" />
+    <Compile Include="L.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
