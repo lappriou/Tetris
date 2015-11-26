@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Tetris Ludovic et Thomas" Height="597.072" Width="525">
     <Grid Background="#FFE2E2E2">
-        <Canvas x:Name="CnvJeu" HorizontalAlignment="Left" Height="529" Margin="10,27,0,0" VerticalAlignment="Top" Width="317" Background="#FFB9B9B9"/>
         <StackPanel HorizontalAlignment="Left" Height="529.072" Margin="327,27,0,0" VerticalAlignment="Top" Width="180" d:LayoutOverrides="TopMargin, BottomMargin">
             <StackPanel Height="197">
                 <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="NEXT" Cursor="Arrow" FontFamily="Stencil"/>
@@ -25,6 +24,20 @@
                 </Button.Background>
             </Button>
         </StackPanel>
+        <Grid HorizontalAlignment="Left" Height="529" Margin="10,27,0,0" VerticalAlignment="Top" Width="289">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="156*"/>
+                <RowDefinition Height="373*"/>
+                <RowDefinition Height="156*"/>
+                <RowDefinition Height="373*"/>
+                <RowDefinition Height="156*"/>
+                <RowDefinition Height="373*"/>
+                <RowDefinition Height="156*"/>
+                <RowDefinition Height="373*"/>
+                <RowDefinition Height="156*"/>
+                <RowDefinition Height="373*"/>
+            </Grid.RowDefinitions>
+        </Grid>
 
     </Grid>
 </Window>
