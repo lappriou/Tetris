@@ -17,7 +17,43 @@ namespace Tetris
         }
         public override void rotation()
         {
+            if (blocs[2].Y - blocs[0].Y == 2)
+            {
+                blocs[0].X += 1;
+                blocs[0].Y += 1;
+                blocs[2].X -= 1;
+                blocs[2].Y -= 1;
+                blocs[3].X += 2;
+                
+            }
 
+            if (blocs[0].X  - blocs[2].X == 2 )
+            {
+                blocs[0].X -= 1;
+                blocs[0].Y += 1;
+                blocs[2].X += 1;
+                blocs[2].Y -= 1;
+                blocs[3].Y += 2;
+            }
+
+            if (blocs[0].Y - blocs[2].Y == 2)
+            {
+                blocs[0].X -= 1;
+                blocs[0].Y -= 1;
+                blocs[2].X += 1;
+                blocs[2].Y += 1;
+                blocs[3].X -= 2;
+
+            }
+
+            if (blocs[2].X - blocs[0].X == 2)
+            {
+                blocs[0].X += 1;
+                blocs[0].Y += 1;
+                blocs[2].X -= 1;
+                blocs[2].Y += 1;
+                blocs[3].X -= 2;
+            }
         }
     }
 }
