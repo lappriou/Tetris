@@ -15,5 +15,50 @@ namespace Tetris
             blocs[2] = new Bloc { X = 5, Y = 21 };
             blocs[3] = new Bloc { X = 6, Y = 20 };
         }
+
+        public override void rotation()
+        {
+            if (blocs[0].X - blocs[3].X == 2 && blocs[2].Y - blocs[1].Y == 1)
+            {
+                blocs[0].X += 1;
+                blocs[0].Y -= 1;
+                blocs[2].X -= 1;
+                blocs[2].Y -= 1;
+                blocs[3].X -= 1;
+                blocs[3].Y += 1;
+                     
+            }
+
+            if (blocs[3].Y - blocs[0].Y == 2 && blocs[1].X - blocs[2].X == 1)
+            {
+                blocs[0].X += 1;
+                blocs[0].Y += 1;
+                blocs[2].X += 1;
+                blocs[2].Y -= 1;
+                blocs[3].X -= 1;
+                blocs[3].Y -= 1;
+            }
+
+            if (blocs[0].X - blocs[3].X == 2 && blocs[1].Y - blocs[2].Y == 1)
+            {
+                blocs[0].X -= 1;
+                blocs[0].Y += 1;
+                blocs[2].X += 1;
+                blocs[2].Y += 1;
+                blocs[3].X += 1;
+                blocs[3].Y -= 1;
+
+            }
+
+            if (blocs[3].Y - blocs[0].Y == 2 && blocs[2].X - blocs[1].X == 1)
+            {
+                blocs[0].X -= 1;
+                blocs[0].Y -= 1;
+                blocs[2].X -= 1;
+                blocs[2].Y += 1;
+                blocs[3].X += 1;
+                blocs[3].Y += 1;
+            }
+        }
     }
 }

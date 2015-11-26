@@ -15,5 +15,9 @@ namespace Tetris
             blocs[2] = new Bloc { X = 5, Y = 22 };
             blocs[3] = new Bloc { X = 4, Y = 20 };
         }
+        public override void rotation()
+        {
+
+        }
     }
 }
