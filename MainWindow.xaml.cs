@@ -24,7 +24,7 @@ namespace Tetris
         {
             InitializeComponent();
             Jeu_Tetris tetris = new Jeu_Tetris();
-            List<Forme> ListeForme = new List<Forme>();
+
             
         }
 

@@ -19,6 +19,10 @@ namespace Tetris
             
         }
 
+
+        abstract public void rotation();
+        
+
     }
 
 
