@@ -24,7 +24,9 @@ namespace Tetris
         Forme t = new T();
         #endregion
 
-        public List<string> ListeCouleur = new List<string> { "#3399ff" };
+        
+
+        public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649" };
         
 
 
