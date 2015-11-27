@@ -24,7 +24,7 @@
                 </Button.Background>
             </Button>
         </StackPanel>
-        <Grid HorizontalAlignment="Left" Height="529" Margin="10,27,0,0" VerticalAlignment="Top" Width="289">
+        <Grid x:Name="GrilleJeu" HorizontalAlignment="Left" Height="529" Margin="10,27,0,0" VerticalAlignment="Top" Width="289">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

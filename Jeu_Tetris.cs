@@ -13,7 +13,7 @@ namespace Tetris
             public int? Id { get; set; } // garde en memoire a quel objet appartient le bloc
             public string Couleur { get; set; }
         }
-
+        #region Les formes
         List<Forme> formes = new List<Forme>();
         Forme carre = new Carree();
         Forme l = new L();
@@ -22,6 +22,11 @@ namespace Tetris
         Forme marche = new Marche();
         Forme marcheInverse = new MarcheInverse();
         Forme t = new T();
+        #endregion
+
+        public List<string> ListeCouleur = new List<string> { "#3399ff" };
+        
+
 
         public etatBloc[,] grilleTetris;
 
@@ -33,6 +38,7 @@ namespace Tetris
 
         public Forme InitialiserForme()
        {
+            Forme formeAleatoire;
             formes.Add( carre);
             formes.Add(l);
             formes.Add(linverse);
@@ -41,9 +47,13 @@ namespace Tetris
             formes.Add(marcheInverse);
             formes.Add(t);
 
+            
             Random geneAleatoire = new Random();
             int nombregenere = geneAleatoire.Next(0, formes.Capacity - 1);
-            return formes[nombregenere];
+            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Capacity - 1);
+            formeAleatoire = formes[nombregenere];
+            formeAleatoire.Couleur = ListeCouleur[couleurgenere];
+            return formeAleatoire;
         }
 
 
@@ -59,6 +69,7 @@ namespace Tetris
             }
         }
 
+        #region Collision
         //test les cases disponible vertical
         public bool CollisionVertical(Bloc[] blocs)
         {
@@ -90,5 +101,6 @@ namespace Tetris
 
             return collision;
         }
+        #endregion
     }
 }

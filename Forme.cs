@@ -9,6 +9,7 @@ namespace Tetris
     abstract class Forme 
     {
         public Bloc[] blocs = new Bloc[4];
+        public string Couleur { get; set; }
 
         public void DeplacerAGauche()
         {         
