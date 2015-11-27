@@ -72,6 +72,14 @@ namespace Tetris {
         #line default
         #line hidden
         
+        
+        #line 27 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Grid GrilleJeu;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -119,6 +127,9 @@ namespace Tetris {
             
             #line default
             #line hidden
+            return;
+            case 5:
+            this.GrilleJeu = ((System.Windows.Controls.Grid)(target));
             return;
             }
             this._contentLoaded = true;

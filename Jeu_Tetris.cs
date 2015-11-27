@@ -10,9 +10,8 @@ namespace Tetris
     {
         public struct etatBloc
         {
-            int? id;
-            string couleur;
-            Bloc bloc;
+            public int? Id { get; set; } // garde en memoire a quel objet appartient le bloc
+            public string Couleur { get; set; }
         }
 
         List<Forme> formes = new List<Forme>();
@@ -47,6 +46,18 @@ namespace Tetris
             return formes[nombregenere];
         }
 
+
+        public void initGrille()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; i < 4; j++)
+                {
+                    grilleTetris[i, j].Id = null  ;  // aucun objet est present dans la grille au depart
+                    grilleTetris[i, j].Couleur = // la couleur est par defaut au debut
+                }
+            }
+        }
 
 
         //test les cases disponible vertical
