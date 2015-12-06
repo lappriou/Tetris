@@ -51,19 +51,19 @@ namespace Tetris
 
             
             Random geneAleatoire = new Random();
-            int nombregenere = geneAleatoire.Next(0, formes.Capacity - 1);
-            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Capacity - 1);
+            int nombregenere = geneAleatoire.Next(0, formes.Capacity - 2);
+            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Capacity - 2);
             formeAleatoire = formes[nombregenere];
-            formeAleatoire.Couleur = ListeCouleur[couleurgenere];
+            //formeAleatoire.Couleur = ListeCouleur[couleurgenere];
             return formeAleatoire;
         }
 
 
         public void initGrille()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 9; i++)
             {
-                for (int j = 0; i < 20; j++)
+                for (int j = 0; j < 19; j++)
                 {
                     grilleTetris[i, j].Id = null  ;  // aucun objet est present dans la grille au depart
                     grilleTetris[i, j].Couleur = "#DDDDDD"; // la couleur est par defaut au debut
@@ -104,5 +104,12 @@ namespace Tetris
             return collision;
         }
         #endregion
+
+        public etatBloc[,] getGrille()
+        {
+            return grilleTetris;
+        }
+
+        
     }
 }
