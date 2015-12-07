@@ -22,6 +22,7 @@ namespace Tetris
         Forme marche = new Marche();
         Forme marcheInverse = new MarcheInverse();
         Forme t = new T();
+
         #endregion
 
         
@@ -54,7 +55,7 @@ namespace Tetris
             int nombregenere = geneAleatoire.Next(0, formes.Capacity - 2);
             int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Capacity - 2);
             formeAleatoire = formes[nombregenere];
-            //formeAleatoire.Couleur = ListeCouleur[couleurgenere];
+            formeAleatoire.Couleur = ListeCouleur[couleurgenere];
             return formeAleatoire;
         }
 

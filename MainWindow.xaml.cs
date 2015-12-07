@@ -24,6 +24,7 @@ namespace Tetris
         {
             InitializeComponent();
 
+
             Jeu_Tetris jeu = new Jeu_Tetris();
             Forme forme = jeu.InitialiserForme();
             // Create Columne
@@ -56,7 +57,7 @@ namespace Tetris
                 for (int o = 0; o < 4; o++)
                 {
                     Label bloc = new Label();
-                    bloc.Background =  Brushes.Aqua  ;
+                    bloc.Background = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush; ;
                     Grid.SetColumn(bloc, forme.blocs[o].X);
                     Grid.SetRow(bloc, forme.blocs[o].Y);
                     GrilleJeu.Children.Add(bloc);
