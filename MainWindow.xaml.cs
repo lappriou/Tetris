@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Timers;
 
 namespace Tetris
 {
@@ -20,19 +21,26 @@ namespace Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
+        Jeu_Tetris jeu = new Jeu_Tetris();
+        Forme forme;
+        Timer timer = new Timer();
+        
+        Forme formeSuivante;
+
         public MainWindow()
         {
             InitializeComponent();
+            forme = jeu.InitialiserForme();
+            timer.Interval = 1000;
 
-
-            Jeu_Tetris jeu = new Jeu_Tetris();
-            Forme forme = jeu.InitialiserForme();
+            #region Crée la grille WPF
             // Create Columne
 
-            for(int c = 0; c < 10; c++) { 
-            ColumnDefinition colonne = new ColumnDefinition();
+            for (int c = 0; c < 10; c++)
+            {
+                ColumnDefinition colonne = new ColumnDefinition();
 
-            GrilleJeu.ColumnDefinitions.Add(colonne);
+                GrilleJeu.ColumnDefinitions.Add(colonne);
             }
 
             // Create Rows
@@ -44,36 +52,117 @@ namespace Tetris
                 GrilleJeu.RowDefinitions.Add(ligne);
             }
 
-
-            Forme formeSuivante = jeu.InitialiserForme();
-
-            //dessine la forme en cours
-
-
-            //while ()
-            //{
-
-
-                for (int o = 0; o < 4; o++)
+            //create Label
+            for (int r = 0; r < 20; r++)
+            {
+                for (int c = 0; c < 10; c++)
                 {
                     Label bloc = new Label();
-                    bloc.Background = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush; ;
-                    Grid.SetColumn(bloc, forme.blocs[o].X);
-                    Grid.SetRow(bloc, forme.blocs[o].Y);
+                    bloc.Background = Brushes.Beige;
+                    //bloc.Borde = Brushes.Black;
+                    bloc.Width = GrilleJeu.Width / 10;
+                    bloc.Height = GrilleJeu.Height / 20;
+                    Grid.SetColumn(bloc, c);
+                    Grid.SetRow(bloc, r);
+
                     GrilleJeu.Children.Add(bloc);
                 }
-                //TimeSpan timespan = new TimeSpan(0, 1, 0);
-
-            //}
-
-
-
+            }
+            #endregion
 
         }
 
 
+
+
+
+
+        private void buJouer_Click(object sender, RoutedEventArgs e)
+        {
+            jeu.initGrille();
+            //create Label
+            for (int r = 0; r < 20; r++)
+            {
+                for (int c = 0; c < 10; c++)
+                {
+                    Label bloc = new Label();
+                    bloc.Background = Brushes.Beige;
+                    //bloc.Borde = Brushes.Black;
+                    bloc.Width = GrilleJeu.Width / 10;
+                    bloc.Height = GrilleJeu.Height / 20;
+                    Grid.SetColumn(bloc, c);
+                    Grid.SetRow(bloc, r);
+
+                    GrilleJeu.Children.Add(bloc);
+                }
+            }
+
+        }
+
+
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            formeSuivante = jeu.InitialiserForme();
+            while (forme.blocs[0].Y != 0 && forme.blocs[1].Y != 0 && forme.blocs[2].Y != 0 && forme.blocs[3].Y != 0 && jeu.CollisionVertical(forme.blocs) == false)
+            {
+                for (int o = 0; o < 4; o++)
+                {
+                    Label bloc = new Label();
+                    bloc.Background = Brushes.Beige;
+                    bloc.Width = GrilleJeu.Width / 10;
+                    bloc.Height = GrilleJeu.Height / 20;
+                    Grid.SetColumn(bloc, forme.blocs[o].X);
+                    Grid.SetRow(bloc, forme.blocs[o].Y);
+
+                    GrilleJeu.Children.Add(bloc);
+
+                }
+                forme.DeplacerEnBas();
+                for (int o = 0; o < 4; o++)
+                {
+                    Label bloc = new Label();
+                    bloc.Background = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
+                    bloc.Width = GrilleJeu.Width / 10;
+                    bloc.Height = GrilleJeu.Height / 20;
+                    Grid.SetColumn(bloc, forme.blocs[o].X);
+                    Grid.SetRow(bloc, forme.blocs[o].Y);
+ 
+                    GrilleJeu.Children.Add(bloc);
+
+                }
+
+
+
+                timer.Start();
+
+                //GrilleJeu.Children.Clear();
+
+
+            }
+            forme = formeSuivante;
+            jeu.remplirGrille(forme);
+            for (int l = 0; l < 20; l++)
+            {
+                for (int c = 0; c < 10; c++)
+                {
+                    if (jeu.grilleTetris[c, l].Id != null)
+                    {
+                        Label bloc = new Label();
+                        bloc.Background = bloc.Background = new BrushConverter().ConvertFromString(jeu.grilleTetris[c, l].Couleur) as SolidColorBrush;
+                        bloc.Width = GrilleJeu.Width / 10;
+                        bloc.Height = GrilleJeu.Height / 20;
+                        Grid.SetColumn(bloc, c);
+                        Grid.SetRow(bloc, l);
+
+                        GrilleJeu.Children.Add(bloc);
+                    }
+                }
+            }
+        }
+    }
     }
 
 
-    }
+    
 

@@ -22,13 +22,15 @@ namespace Tetris
         Forme marche = new Marche();
         Forme marcheInverse = new MarcheInverse();
         Forme t = new T();
+        int Id = 0;
 
         #endregion
 
-        
 
-        public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649" };
-        
+
+        public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa" };
+
+
 
 
         public etatBloc[,] grilleTetris;
@@ -52,8 +54,8 @@ namespace Tetris
 
             
             Random geneAleatoire = new Random();
-            int nombregenere = geneAleatoire.Next(0, formes.Capacity - 2);
-            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Capacity - 2);
+            int nombregenere = geneAleatoire.Next(0, formes.Count - 1);
+            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Count - 1);
             formeAleatoire = formes[nombregenere];
             formeAleatoire.Couleur = ListeCouleur[couleurgenere];
             return formeAleatoire;
@@ -80,11 +82,11 @@ namespace Tetris
             Bloc test = new Bloc();
 
             for (int i =0; i< blocs.Count(); i++)
-            if(grilleTetris[blocs[i].X, blocs[i].Y - 1].Id != null || grilleTetris[blocs[i].X, blocs[i].Y + 1].Id != null)
+            if(grilleTetris[blocs[i].X, blocs[i].Y - 1].Id != null && grilleTetris[blocs[i].X, blocs[i].Y + 1].Id != null && blocs[i].Y == 0 )
             {
                     collision = true;
             }
-
+            
             return collision;
 
 
@@ -109,6 +111,15 @@ namespace Tetris
         public etatBloc[,] getGrille()
         {
             return grilleTetris;
+        }
+
+        public void remplirGrille(Forme forme)
+        {
+            for(int i = 0; i < forme.blocs.Count(); i++)
+            {
+                grilleTetris[forme.blocs[i].X, forme.blocs[i].Y].Id = Id;
+                grilleTetris[forme.blocs[i].X, forme.blocs[i].Y].Couleur = forme.Couleur;
+            }
         }
 
         

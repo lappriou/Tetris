@@ -9,8 +9,9 @@ namespace Tetris
     abstract class Forme 
     {
         public Bloc[] blocs = new Bloc[4];
-    public  string Couleur { get; set; }
-       
+        public  string Couleur { get; set; }
+        static string Image { get; set; }
+
         public void DeplacerAGauche()
         {         
                 blocs[0].X = blocs[0].X - 1;
