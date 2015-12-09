@@ -9,11 +9,11 @@
     <Grid Background="#FFE2E2E2">
         <StackPanel HorizontalAlignment="Left" Height="529.072" Margin="327,27,0,0" VerticalAlignment="Top" Width="180" d:LayoutOverrides="TopMargin, BottomMargin">
             <StackPanel Height="197">
-                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="NEXT" Cursor="Arrow" FontFamily="Stencil"/>
-                <Image x:Name="image" Height="157"/>
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="NEXT" Cursor="Arrow" FontFamily="Stencil" HorizontalAlignment="Center" Height="38" Margin="75,0"/>
+                <Canvas x:Name="CanFormeSuivante" Height="159" Width="180"/>
             </StackPanel>
-            <StackPanel Height="294">
-                <TextBlock x:Name="textJoueur" Height="18.855" Margin="1.143,0,0,0" TextWrapping="Wrap" Text="Bonne Chance" FontFamily="Stencil"/>
+            <StackPanel Height="274">
+                <TextBlock x:Name="textJoueur" Height="17" Margin="47,0,45,0" TextWrapping="Wrap" Text="Bonne Chance" FontFamily="Stencil" HorizontalAlignment="Center"/>
             </StackPanel>
             <Button x:Name="buJouer" Content="Jouer"  FontFamily="Stencil" Height="38" RenderTransformOrigin="0.5,0.5" Click="buJouer_Click">
                 <Button.Background>

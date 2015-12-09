@@ -72,6 +72,7 @@ namespace Tetris
             #endregion
 
             formeSuivante = jeu.InitialiserForme();
+            RemplirCanvas();
 
         }
 
@@ -129,6 +130,21 @@ namespace Tetris
             }
         }
 
+        public void RemplirCanvas()
+        {
+            CanFormeSuivante.Children.Clear();
+            for (int i = 0; i < formeSuivante.blocs.Count(); i++)
+            {
+                Rectangle blocSuivant = new Rectangle();
+                blocSuivant.Height = 30;
+                blocSuivant.Width = 30;
+                blocSuivant.Fill = new BrushConverter().ConvertFromString(formeSuivante.Couleur) as SolidColorBrush;
+                Canvas.SetBottom(blocSuivant, CanFormeSuivante.Height/2 + (formeSuivante.blocs[i].Y -21)* blocSuivant.Height );
+                Canvas.SetRight(blocSuivant, CanFormeSuivante.Width/2 + (formeSuivante.blocs[i].X - 4)* blocSuivant.Width);
+                CanFormeSuivante.Children.Add(blocSuivant);
+
+                    }
+        }
 
         private void buJouer_Click(object sender, RoutedEventArgs e)
         {
@@ -155,21 +171,23 @@ namespace Tetris
                     DessinerForme();
                     forme = formeSuivante;
                     formeSuivante = jeu.InitialiserForme();
+                    RemplirCanvas();
+                    jeu.VerifLigneComplete();
 
                 }
 
-                }            
-            if (e.Key == Key.Up)
+             }            
+            else if (e.Key == Key.Up)
             {
                 if (true)
                 {
                     CouleurDefaut();
-                    forme.rotation();
+                    jeu.Rotation(forme);
                     DessinerForme();
                 }
             }
 
-            if (e.Key == Key.Left)
+            else if (e.Key == Key.Left)
             {
                 if (jeu.CollisionHorizontalGauche(forme.blocs) == false)
                 {
@@ -178,7 +196,7 @@ namespace Tetris
                     DessinerForme();
                 }
             }
-            if (e.Key == Key.Right && jeu.CollisionHorizontalDroite(forme.blocs) == false)
+            else if (e.Key == Key.Right && jeu.CollisionHorizontalDroite(forme.blocs) == false)
             {
                 CouleurDefaut();
                 forme.DeplacerADroite();
