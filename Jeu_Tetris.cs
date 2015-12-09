@@ -79,10 +79,9 @@ namespace Tetris
         public bool CollisionVertical(Bloc[] blocs)
         {
             bool collision = false;
-            Bloc test = new Bloc();
 
-            for (int i =0; i< blocs.Count(); i++)
-            if(grilleTetris[blocs[i].X, blocs[i].Y - 1].Id != null && grilleTetris[blocs[i].X, blocs[i].Y + 1].Id != null && blocs[i].Y == 0 )
+            for (int i = 0; i < blocs.Count(); i++)
+                if (blocs[i].Y == 0 || grilleTetris[blocs[i].X,blocs[i].Y - 1].Id != null)
             {
                     collision = true;
             }
@@ -93,25 +92,41 @@ namespace Tetris
         }
 
         //test les cases disponible horizontal
-        public bool CollisionHorizontal(Bloc[] blocs)
+        public bool CollisionHorizontalGauche(Bloc[] blocs)
         {
             bool collision = false;
-            Bloc test = new Bloc();
 
             for (int i = 0; i < blocs.Count(); i++)
-                if (grilleTetris[blocs[i].X - 1, blocs[i].Y].Id != null || grilleTetris[blocs[i].X + 1, blocs[i].Y].Id != null)
+                if ( blocs[i].X  == 9 || grilleTetris[blocs[i].X + 1,blocs[i].Y ].Id != null)
                 {
                     collision = true;
+                    return collision;
+                }
+
+            return collision;
+        }
+
+        public bool CollisionHorizontalDroite(Bloc[] blocs)
+        {
+            bool collision = false;
+
+            for (int i = 0; i < blocs.Count(); i++)
+                if (blocs[i].X  == 0 ||  grilleTetris[blocs[i].X - 1,blocs[i].Y ].Id != null)
+                {
+                    collision = true;
+                    return collision;
                 }
 
             return collision;
         }
         #endregion
 
+
         public etatBloc[,] getGrille()
         {
             return grilleTetris;
         }
+
 
         public void remplirGrille(Forme forme)
         {

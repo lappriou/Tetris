@@ -32,7 +32,8 @@ namespace Tetris
             InitializeComponent();
             forme = jeu.InitialiserForme();
             timer.Interval = 1000;
-
+            //GrilleJeu.KeyDown +=
+            //   new KeyEventHandler(this.KeyDown);
             #region Crée la grille WPF
             // Create Columne
 
@@ -70,17 +71,47 @@ namespace Tetris
             }
             #endregion
 
+            formeSuivante = jeu.InitialiserForme();
+
         }
 
 
 
-
-
-
-        private void buJouer_Click(object sender, RoutedEventArgs e)
+        public void DessinerForme()
         {
-            jeu.initGrille();
-            //create Label
+            for (int l = 0; l < 20; l++)
+            {
+                for (int c = 0; c < 10; c++)
+                {
+                    if (jeu.grilleTetris[c, l].Id != null)
+                    {
+                        Label bloc = new Label();
+                        bloc.Background = new BrushConverter().ConvertFromString(jeu.grilleTetris[c, l].Couleur) as SolidColorBrush;
+                        bloc.Width = GrilleJeu.Width / 10;
+                        bloc.Height = GrilleJeu.Height / 20;
+                        Grid.SetColumn(bloc, c);
+                        Grid.SetRow(bloc, l);
+
+                        GrilleJeu.Children.Add(bloc);
+                    }
+                }
+            }
+
+            for (int o = 0; o < 4; o++)
+            {
+                Label bloc = new Label();
+                bloc.Background = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
+                bloc.Width = GrilleJeu.Width / 10;
+                bloc.Height = GrilleJeu.Height / 20;
+                Grid.SetColumn(bloc, forme.blocs[o].X);
+                Grid.SetRow(bloc, forme.blocs[o].Y);
+
+                GrilleJeu.Children.Add(bloc);
+            }
+        }
+
+        public void CouleurDefaut()
+        {
             for (int r = 0; r < 20; r++)
             {
                 for (int c = 0; c < 10; c++)
@@ -96,68 +127,62 @@ namespace Tetris
                     GrilleJeu.Children.Add(bloc);
                 }
             }
-
         }
 
 
+        private void buJouer_Click(object sender, RoutedEventArgs e)
+        {
+            jeu.initGrille();
+            //create Label
+            CouleurDefaut();
+            forme = jeu.InitialiserForme();
 
+        }
+
+       
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            formeSuivante = jeu.InitialiserForme();
-            while (forme.blocs[0].Y != 0 && forme.blocs[1].Y != 0 && forme.blocs[2].Y != 0 && forme.blocs[3].Y != 0 && jeu.CollisionVertical(forme.blocs) == false)
+            if (e.Key == Key.Down)
             {
-                for (int o = 0; o < 4; o++)
+                if (jeu.CollisionVertical(forme.blocs) == false)
                 {
-                    Label bloc = new Label();
-                    bloc.Background = Brushes.Beige;
-                    bloc.Width = GrilleJeu.Width / 10;
-                    bloc.Height = GrilleJeu.Height / 20;
-                    Grid.SetColumn(bloc, forme.blocs[o].X);
-                    Grid.SetRow(bloc, forme.blocs[o].Y);
-
-                    GrilleJeu.Children.Add(bloc);
-
+                    CouleurDefaut();
+                    forme.DeplacerEnBas();
+                    DessinerForme();
                 }
-                forme.DeplacerEnBas();
-                for (int o = 0; o < 4; o++)
-                {
-                    Label bloc = new Label();
-                    bloc.Background = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
-                    bloc.Width = GrilleJeu.Width / 10;
-                    bloc.Height = GrilleJeu.Height / 20;
-                    Grid.SetColumn(bloc, forme.blocs[o].X);
-                    Grid.SetRow(bloc, forme.blocs[o].Y);
- 
-                    GrilleJeu.Children.Add(bloc);
+                else {
+                    jeu.remplirGrille(forme);
+                    DessinerForme();
+                    forme = formeSuivante;
+                    formeSuivante = jeu.InitialiserForme();
 
                 }
 
-
-
-                timer.Start();
-
-                //GrilleJeu.Children.Clear();
-
-
+                }            
+            if (e.Key == Key.Up)
+            {
+                if (true)
+                {
+                    CouleurDefaut();
+                    forme.rotation();
+                    DessinerForme();
+                }
             }
-            forme = formeSuivante;
-            jeu.remplirGrille(forme);
-            for (int l = 0; l < 20; l++)
-            {
-                for (int c = 0; c < 10; c++)
-                {
-                    if (jeu.grilleTetris[c, l].Id != null)
-                    {
-                        Label bloc = new Label();
-                        bloc.Background = bloc.Background = new BrushConverter().ConvertFromString(jeu.grilleTetris[c, l].Couleur) as SolidColorBrush;
-                        bloc.Width = GrilleJeu.Width / 10;
-                        bloc.Height = GrilleJeu.Height / 20;
-                        Grid.SetColumn(bloc, c);
-                        Grid.SetRow(bloc, l);
 
-                        GrilleJeu.Children.Add(bloc);
-                    }
+            if (e.Key == Key.Left)
+            {
+                if (jeu.CollisionHorizontalGauche(forme.blocs) == false)
+                {
+                    CouleurDefaut();
+                    forme.DeplacerAGauche();
+                    DessinerForme();
                 }
+            }
+            if (e.Key == Key.Right && jeu.CollisionHorizontalDroite(forme.blocs) == false)
+            {
+                CouleurDefaut();
+                forme.DeplacerADroite();
+                DessinerForme();
             }
         }
     }

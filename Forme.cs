@@ -14,11 +14,20 @@ namespace Tetris
 
         public void DeplacerAGauche()
         {         
-                blocs[0].X = blocs[0].X - 1;
-                blocs[1].X -= 1;
-                blocs[2].X -= 1;
-                blocs[3].X -= 1;
-            
+
+            blocs[0].X += 1;
+            blocs[1].X += 1;
+            blocs[2].X += 1;
+            blocs[3].X += 1;
+        }
+
+        public void DeplacerADroite()
+        {
+
+            blocs[0].X -= 1;
+            blocs[1].X -= 1;
+            blocs[2].X -= 1;
+            blocs[3].X -= 1;
         }
 
         public void DeplacerEnBas()
