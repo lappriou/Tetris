@@ -16,10 +16,20 @@ namespace Tetris
             blocs[3] = new Bloc { X = 5, Y = 21 };
         }
 
+        public override Forme ShallowCopy()
+        {
+            Forme carre = new Carree();
+            carre.blocs = this.blocs;
+            return carre;
+        }
 
         public override void rotation()
         {
             
+        }
+
+        public override void RotationInverse()
+        {
         }
     }
 }

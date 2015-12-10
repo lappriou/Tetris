@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Timers;
+using System.Windows.Threading;
 
 namespace Tetris
 {
@@ -22,16 +23,17 @@ namespace Tetris
     public partial class MainWindow : Window
     {
         Jeu_Tetris jeu = new Jeu_Tetris();
-        Forme forme;
-        Timer timer = new Timer();
-        
+        Forme forme;  
         Forme formeSuivante;
-
+        DispatcherTimer DescenteTimer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
             forme = jeu.InitialiserForme();
-            timer.Interval = 1000;
+
+            DescenteTimer.Tick += new EventHandler(Descente);
+            DescenteTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            DescenteTimer.Start();
             //GrilleJeu.KeyDown +=
             //   new KeyEventHandler(this.KeyDown);
             #region Crée la grille WPF
@@ -77,8 +79,44 @@ namespace Tetris
         }
 
 
+        private void Descente(object sender, EventArgs e)
+        {
 
-        public void DessinerForme()
+            if (jeu.CollisionVertical(forme.blocs) == false)
+            {
+                EffacerForme();
+                forme.DeplacerEnBas();
+                DessinerForme();
+            }
+            else {
+                jeu.remplirGrille(forme);
+                DessinerGrille();
+                forme = formeSuivante;
+                formeSuivante = jeu.InitialiserForme();
+                RemplirCanvas();
+                jeu.VerifLigneComplete();
+                DessinerGrille();
+            }
+
+        }
+
+        public void EffacerForme()
+        {
+            for (int o = 0; o < 4; o++)
+            {
+                Label bloc = new Label();
+                bloc.Background = Brushes.Beige;
+                bloc.Width = GrilleJeu.Width / 10;
+                bloc.Height = GrilleJeu.Height / 20;
+                Grid.SetColumn(bloc, forme.blocs[o].X);
+                Grid.SetRow(bloc, forme.blocs[o].Y);
+
+                GrilleJeu.Children.Add(bloc);
+            }
+        }
+
+
+        public void DessinerGrille()
         {
             for (int l = 0; l < 20; l++)
             {
@@ -97,6 +135,10 @@ namespace Tetris
                     }
                 }
             }
+        }
+        public void DessinerForme()
+        {
+           
 
             for (int o = 0; o < 4; o++)
             {
@@ -142,17 +184,17 @@ namespace Tetris
                 Canvas.SetBottom(blocSuivant, CanFormeSuivante.Height/2 + (formeSuivante.blocs[i].Y -21)* blocSuivant.Height );
                 Canvas.SetRight(blocSuivant, CanFormeSuivante.Width/2 + (formeSuivante.blocs[i].X - 4)* blocSuivant.Width);
                 CanFormeSuivante.Children.Add(blocSuivant);
-
                     }
         }
 
         private void buJouer_Click(object sender, RoutedEventArgs e)
         {
+            DescenteTimer.Stop();
             jeu.initGrille();
             //create Label
             CouleurDefaut();
             forme = jeu.InitialiserForme();
-
+            DescenteTimer.Start();
         }
 
        
@@ -162,26 +204,27 @@ namespace Tetris
             {
                 if (jeu.CollisionVertical(forme.blocs) == false)
                 {
-                    CouleurDefaut();
+                    EffacerForme();
                     forme.DeplacerEnBas();
                     DessinerForme();
                 }
-                else {
+                else
+                {
                     jeu.remplirGrille(forme);
                     DessinerForme();
                     forme = formeSuivante;
                     formeSuivante = jeu.InitialiserForme();
                     RemplirCanvas();
                     jeu.VerifLigneComplete();
-
+                    CouleurDefaut();
+                    DessinerGrille();
                 }
-
-             }            
+            }
             else if (e.Key == Key.Up)
             {
                 if (true)
                 {
-                    CouleurDefaut();
+                    EffacerForme();
                     jeu.Rotation(forme);
                     DessinerForme();
                 }
@@ -191,14 +234,14 @@ namespace Tetris
             {
                 if (jeu.CollisionHorizontalGauche(forme.blocs) == false)
                 {
-                    CouleurDefaut();
+                    EffacerForme();
                     forme.DeplacerAGauche();
                     DessinerForme();
                 }
             }
             else if (e.Key == Key.Right && jeu.CollisionHorizontalDroite(forme.blocs) == false)
             {
-                CouleurDefaut();
+                EffacerForme();
                 forme.DeplacerADroite();
                 DessinerForme();
             }

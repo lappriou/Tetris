@@ -13,7 +13,12 @@
                 <Canvas x:Name="CanFormeSuivante" Height="159" Width="180"/>
             </StackPanel>
             <StackPanel Height="274">
-                <TextBlock x:Name="textJoueur" Height="17" Margin="47,0,45,0" TextWrapping="Wrap" Text="Bonne Chance" FontFamily="Stencil" HorizontalAlignment="Center"/>
+                <Grid Height="37">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="31*"/>
+                        <ColumnDefinition Width="29*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </StackPanel>
             <Button x:Name="buJouer" Content="Jouer"  FontFamily="Stencil" Height="38" RenderTransformOrigin="0.5,0.5" Click="buJouer_Click">
                 <Button.Background>

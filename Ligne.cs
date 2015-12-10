@@ -15,9 +15,17 @@ namespace Tetris
             blocs[2] = new Bloc { X = 4, Y = 22 };
             blocs[3] = new Bloc { X = 4, Y = 23 };
         }
+
+        public override Forme ShallowCopy()
+        {
+            Forme ligne = new Ligne();
+            ligne.blocs = this.blocs;
+            return ligne;
+        }
+ 
         public override void rotation()
         {
-            if (blocs[3].Y - blocs[0].Y == 3)
+            if (blocs[3].Y - blocs[0].Y == 3 && blocs[0].X > 4)
             {
                 blocs[1].X -= 1;
                 blocs[1].Y -= 1;
@@ -26,7 +34,7 @@ namespace Tetris
                 blocs[3].X -= 3;
                 blocs[3].Y -= 3;
             }
-            else
+            else if(blocs[0].X - blocs[3].X == 3)
             {
                 blocs[1].X += 1;
                 blocs[1].Y += 1;
@@ -34,6 +42,28 @@ namespace Tetris
                 blocs[2].Y += 2;
                 blocs[3].X += 3;
                 blocs[3].Y += 3;
+            }
+        }
+
+        public override void RotationInverse()
+        {
+            if (blocs[0].X - blocs[3].X == 3) 
+            {
+                blocs[1].X += 1;
+                blocs[1].Y += 1;
+                blocs[2].X += 2;
+                blocs[2].Y += 2;
+                blocs[3].X += 3;
+                blocs[3].Y += 3;
+            }
+            else if (blocs[3].Y - blocs[0].Y == 3)
+            {
+                blocs[1].X -= 1;
+                blocs[1].Y -= 1;
+                blocs[2].X -= 2;
+                blocs[2].Y -= 2;
+                blocs[3].X -= 3;
+                blocs[3].Y -= 3;
             }
         }
     }

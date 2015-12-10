@@ -16,6 +16,13 @@ namespace Tetris
             blocs[3] = new Bloc { X = 5, Y = 21 };
         }
 
+        public override Forme ShallowCopy()
+        {
+            Forme marche = new Marche();
+            marche.blocs   = this.blocs; ;
+            return marche;
+        }
+
         public override void rotation()
         {
             if (blocs[3].X - blocs[0].X == 2)
@@ -26,13 +33,33 @@ namespace Tetris
                 blocs[3].X -= 2;
                 blocs[3].Y += 1;
             }
-            else
+            else if(blocs[3].Y - blocs[0].Y == 2 && blocs[3].X < 8)
             {
                 blocs[0].X -= 1;
                 blocs[1].Y -= 1;
                 blocs[2].X += 1;
                 blocs[3].X += 2;
                 blocs[3].Y -= 1;
+            }
+        }
+
+        public override void RotationInverse()
+        {
+            if (blocs[3].Y - blocs[0].Y == 2)
+            {
+                blocs[0].X -= 1;
+                blocs[1].Y -= 1;
+                blocs[2].X += 1;
+                blocs[3].X += 2;
+                blocs[3].Y -= 1;
+            }
+            else if (blocs[3].X - blocs[0].X == 2)
+            {
+                blocs[0].X += 1;
+                blocs[1].Y += 1;
+                blocs[2].X -= 1;
+                blocs[3].X -= 2;
+                blocs[3].Y += 1;
             }
         }
     }

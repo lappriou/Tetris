@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +21,7 @@ namespace Tetris
 
         List<Forme> formes = new List<Forme>();
         int Id = 0;
+        public int Score { get; set; }
 
         public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa" };
 
@@ -29,12 +33,12 @@ namespace Tetris
         public Jeu_Tetris()
         {
             grilleTetris = new etatBloc[10, 24];
-            
+
         }
 
         public Forme InitialiserForme()
-       {
-            
+        {
+
             #region Les formes
 
             Forme carre = new Carree();
@@ -46,21 +50,21 @@ namespace Tetris
             Forme t = new T();
 
 
-            #endregion
+
             formes.Clear();
             Forme formeAleatoire;
-            formes.Add( carre);
+            formes.Add(carre);
             formes.Add(l);
             formes.Add(linverse);
             formes.Add(ligne);
             formes.Add(marche);
             formes.Add(marcheInverse);
             formes.Add(t);
+            #endregion
 
-            
             Random geneAleatoire = new Random();
-            int nombregenere = geneAleatoire.Next(0, formes.Count - 1);
-            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Count - 1);
+            int nombregenere = geneAleatoire.Next(0, formes.Count);
+            int couleurgenere = geneAleatoire.Next(0, ListeCouleur.Count);
             formeAleatoire = formes[nombregenere];
             formeAleatoire.Couleur = ListeCouleur[couleurgenere];
             return formeAleatoire;
@@ -73,7 +77,8 @@ namespace Tetris
             {
                 for (int j = 0; j < 19; j++)
                 {
-                    grilleTetris[i, j].Id = null  ;  // aucun objet est present dans la grille au depart
+                    grilleTetris[i, j].Id = null;  // aucun objet est present dans la grille au depart
+                    grilleTetris[i, j].Couleur = null;
                 }
             }
         }
@@ -85,9 +90,10 @@ namespace Tetris
             bool collision = false;
 
             for (int i = 0; i < blocs.Count(); i++)
-                if (blocs[i].Y == 0 || grilleTetris[blocs[i].X,blocs[i].Y - 1].Id != null)
-            {
+                if (blocs[i].Y == 0 || grilleTetris[blocs[i].X, blocs[i].Y - 1].Id != null)
+                {
                     collision = true;
+                    Score += 10;
                     return collision;
                 }
 
@@ -101,7 +107,7 @@ namespace Tetris
             bool collision = false;
 
             for (int i = 0; i < blocs.Count(); i++)
-                if ( blocs[i].X  == 9 || grilleTetris[blocs[i].X + 1,blocs[i].Y ].Id != null)
+                if (blocs[i].X == 9 || grilleTetris[blocs[i].X + 1, blocs[i].Y].Id != null)
                 {
                     collision = true;
                     return collision;
@@ -115,7 +121,7 @@ namespace Tetris
             bool collision = false;
 
             for (int i = 0; i < blocs.Count(); i++)
-                if (blocs[i].X  == 0 ||  grilleTetris[blocs[i].X - 1,blocs[i].Y ].Id != null)
+                if (blocs[i].X == 0 || grilleTetris[blocs[i].X - 1, blocs[i].Y].Id != null)
                 {
                     collision = true;
                     return collision;
@@ -134,7 +140,7 @@ namespace Tetris
 
         public void remplirGrille(Forme forme)
         {
-            for(int i = 0; i < forme.blocs.Count(); i++)
+            for (int i = 0; i < forme.blocs.Count(); i++)
             {
                 grilleTetris[forme.blocs[i].X, forme.blocs[i].Y].Id = Id;
                 grilleTetris[forme.blocs[i].X, forme.blocs[i].Y].Couleur = forme.Couleur;
@@ -149,24 +155,23 @@ namespace Tetris
                 int compteur = 0;
                 for (int c = 0; c < 10; c++)
                 {
-                    if(grilleTetris[c,r].Id != null)
+                    if (grilleTetris[c, r].Id != null)
                     {
                         compteur += 1;
                     }
                 }
-                if(compteur == 10)
+                if (compteur == 10)
                 {
-                    for (int row = 0; row < 20; row++)
+                    Score += 1000;
+                    for (int row = r; row < 20; row++)
                     {
                         for (int c = 0; c < 10; c++)
                         {
                             grilleTetris[c, row] = grilleTetris[c, row + 1];
-
-
-                        }
+                        }                  
                     }
-
                     r -= 1;
+
                 }
 
             }
@@ -175,27 +180,19 @@ namespace Tetris
         public void Rotation(Forme forme)
         {
             //sert a vérifié la disponibilité des cases apres rotation
-            //Forme test = forme;
-            //test.rotation();
-            bool colision = false;
-            //for(int i = 0; i< test.blocs.Count(); i++)
-            //{
-            //    if(grilleTetris[test.blocs[i].X, test.blocs[i].Y].Id != null || test.blocs[i].X < 0 || test.blocs[i].X > 9 || test.blocs[i].Y < 0)
-            //    {
-            //        colision = true;
-            //    }
-            //}
 
-            if(colision ==false)
+            forme.rotation();
+            bool collision = false;
+            for (int i = 0; i < forme.blocs.Count() && collision == false; i++)
             {
-                forme.rotation();
+                if (grilleTetris[forme.blocs[i].X, forme.blocs[i].Y].Id != null)
+                {
+                    forme.RotationInverse();
+                    collision = true;
+                }
+
             }
-
         }
-        
-
-        }
-
-        
     }
+}
 
