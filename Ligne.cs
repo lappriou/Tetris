@@ -25,7 +25,7 @@ namespace Tetris
  
         public override void rotation()
         {
-            if (blocs[3].Y - blocs[0].Y == 3 && blocs[0].X > 4)
+            if (blocs[3].Y - blocs[0].Y == 3 && blocs[0].X > 2)
             {
                 blocs[1].X -= 1;
                 blocs[1].Y -= 1;
@@ -34,6 +34,7 @@ namespace Tetris
                 blocs[3].X -= 3;
                 blocs[3].Y -= 3;
             }
+
             else if(blocs[0].X - blocs[3].X == 3)
             {
                 blocs[1].X += 1;

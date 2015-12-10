@@ -31,7 +31,7 @@ namespace Tetris
             InitializeComponent();
             forme = jeu.InitialiserForme();
 
-            DescenteTimer.Tick += new EventHandler(Descente);
+            DescenteTimer.Tick += new EventHandler(TimeDescente);
             DescenteTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             DescenteTimer.Start();
             //GrilleJeu.KeyDown +=
@@ -79,9 +79,20 @@ namespace Tetris
         }
 
 
-        private void Descente(object sender, EventArgs e)
+        
+        private void TimeDescente(object sender, EventArgs e)
         {
 
+            Descente();
+            if(jeu.GameOver == true)
+            {
+                DescenteTimer.Stop();
+            }
+        }
+
+        
+        public void Descente()
+        {
             if (jeu.CollisionVertical(forme.blocs) == false)
             {
                 EffacerForme();
@@ -98,8 +109,9 @@ namespace Tetris
                 DessinerGrille();
             }
 
-        }
+            
 
+        }
         public void EffacerForme()
         {
             for (int o = 0; o < 4; o++)
@@ -115,9 +127,11 @@ namespace Tetris
             }
         }
 
+        
 
         public void DessinerGrille()
         {
+            GrilleJeu.Children.Clear();
             for (int l = 0; l < 20; l++)
             {
                 for (int c = 0; c < 10; c++)
@@ -189,37 +203,24 @@ namespace Tetris
 
         private void buJouer_Click(object sender, RoutedEventArgs e)
         {
+ 
             DescenteTimer.Stop();
+            GrilleJeu.Children.Clear();
             jeu.initGrille();
             //create Label
             CouleurDefaut();
             forme = jeu.InitialiserForme();
+            jeu.GameOver = false;
             DescenteTimer.Start();
         }
 
-       
+        #region Commandes    
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Down)
+            if (e.Key == Key.Down && jeu.GameOver == false)
             {
-                if (jeu.CollisionVertical(forme.blocs) == false)
-                {
-                    EffacerForme();
-                    forme.DeplacerEnBas();
-                    DessinerForme();
+                Descente();
                 }
-                else
-                {
-                    jeu.remplirGrille(forme);
-                    DessinerForme();
-                    forme = formeSuivante;
-                    formeSuivante = jeu.InitialiserForme();
-                    RemplirCanvas();
-                    jeu.VerifLigneComplete();
-                    CouleurDefaut();
-                    DessinerGrille();
-                }
-            }
             else if (e.Key == Key.Up)
             {
                 if (true)
@@ -246,8 +247,9 @@ namespace Tetris
                 DessinerForme();
             }
         }
+        #endregion
     }
-    }
+}
 
 
     

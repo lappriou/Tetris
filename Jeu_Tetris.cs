@@ -18,12 +18,13 @@ namespace Tetris
 
         }
 
-
+        public bool GameOver { get; set; }
         List<Forme> formes = new List<Forme>();
         int Id = 0;
         public int Score { get; set; }
+        
 
-        public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa" };
+        public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa","#1F6357","#f070de", "#d60a0a","#AED9BB", "#344138" };
 
 
 
@@ -73,9 +74,9 @@ namespace Tetris
 
         public void initGrille()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 19; j++)
+                for (int j = 0; j < 24 ; j++)
                 {
                     grilleTetris[i, j].Id = null;  // aucun objet est present dans la grille au depart
                     grilleTetris[i, j].Couleur = null;
@@ -92,6 +93,10 @@ namespace Tetris
             for (int i = 0; i < blocs.Count(); i++)
                 if (blocs[i].Y == 0 || grilleTetris[blocs[i].X, blocs[i].Y - 1].Id != null)
                 {
+                    if (blocs[i].Y > 20)
+                    {
+                        GameOver = true;
+                    }
                     collision = true;
                     Score += 10;
                     return collision;
