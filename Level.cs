@@ -8,5 +8,7 @@ namespace Tetris
 {
     class Level
     {
+        public int ScoreADepasser { get; set; }
+        public float CoefficientVitesse { get; set; }
     }
 }

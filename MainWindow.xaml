@@ -23,7 +23,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
         </Grid>
-        <TextBlock x:Name="GameOver" Margin="71,121.52,0,0" TextWrapping="WrapWithOverflow" Text="Game Over" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="60" Height="171.937" Width="331.492" FontFamily="Goudy Stout" FontWeight="ExtraBold" FontStyle="Italic" TextTrimming="CharacterEllipsis" FontStretch="Condensed" RenderTransformOrigin="0.5,0.5">
+        <TextBlock x:Name="GameOver" Margin="76.58,123.223,0,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="60" Height="409.474" Width="331.492" FontFamily="Goudy Stout" FontWeight="ExtraBold" FontStyle="Italic" TextTrimming="CharacterEllipsis" FontStretch="Condensed" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -31,8 +31,7 @@
                     <RotateTransform Angle="7.348"/>
                     <TranslateTransform/>
                 </TransformGroup>
-            </TextBlock.RenderTransform>
-        </TextBlock>
+            </TextBlock.RenderTransform><Run Text="Game Over"/><LineBreak/><Run/><LineBreak/><Run FontSize="40" Text="Joyeux Noel"/></TextBlock>
         <Button x:Name="buJouer" Content="Recommencer" HorizontalAlignment="Right" Height="27.739" Margin="0,0,23.667,10" VerticalAlignment="Bottom" Width="136.666" Click="buJouer_Click"/>
         <TextBlock x:Name="Score" Height="20.5" Margin="0,0,127.167,82.572" TextWrapping="Wrap" Text="Score" VerticalAlignment="Bottom" Width="33.166" HorizontalAlignment="Right"/>
         <TextBox x:Name="AffScore" HorizontalAlignment="Right" Height="20.5" Margin="0,0,10,82.572" TextWrapping="Wrap" Text="{Binding jeu.Score}" VerticalAlignment="Bottom" Width="89.5" IsEnabled="False" TextAlignment="Right"/>
