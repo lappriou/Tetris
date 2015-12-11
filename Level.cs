@@ -9,15 +9,12 @@ namespace Tetris
     class Level
     {
         public int ScoreADepasser { get; set; }
-        public float CoefficientVitesse { get; set; }
+        public double CoefficientVitesse { get; set; }
 
-        public Level(int scoreADepasser, float coefficientVitesse)
+        public Level(int scoreADepasser, double coefficientVitesse)
         {
             ScoreADepasser = scoreADepasser;
             CoefficientVitesse = coefficientVitesse;
-        }
-        {
-
         }
     }
 }

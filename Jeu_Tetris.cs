@@ -22,8 +22,11 @@ namespace Tetris
         List<Forme> formes = new List<Forme>();
         int Id = 0;
         public int Score { get; set; } = 0;
-        
-        
+
+        //Création des niveaux
+
+        Level level1 = new Level(5000, 0.10);
+
        
 
         public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa","#1F6357","#f070de", "#d60a0a","#AED9BB", "#344138" };
