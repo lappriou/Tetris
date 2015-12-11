@@ -72,12 +72,12 @@ namespace Tetris
                 }
             }
             #endregion
-
+            jeu.RemplirListeNiveau();
             formeSuivante = jeu.InitialiserForme();
             RemplirCanvas();
             GameOver.Visibility = System.Windows.Visibility.Hidden;
+            AfficherTextScoreNiveau();
 
-            AffScore.Text = Convert.ToString(jeu.Score);
 
 
         }
@@ -93,6 +93,7 @@ namespace Tetris
                 DescenteTimer.Stop();
                 GameOver.Foreground = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
                 GameOver.Visibility = System.Windows.Visibility.Visible;
+                AfficherTextScoreNiveau();
             }
         }
 
@@ -105,6 +106,7 @@ namespace Tetris
                 forme.DeplacerEnBas();
                 DessinerForme();
                 AffScore.Text = Convert.ToString(jeu.Score);
+                AfficherTextScoreNiveau();
             }
             else {
                 jeu.remplirGrille(forme);
@@ -115,6 +117,7 @@ namespace Tetris
                 jeu.VerifLigneComplete();
                 DessinerGrille();
                 AffScore.Text = Convert.ToString(jeu.Score);
+                AfficherTextScoreNiveau();
             }
 
             
@@ -157,6 +160,14 @@ namespace Tetris
                     }
                 }
             }
+        }
+
+        public void AfficherTextScoreNiveau()
+        {
+            //DescenteTimer.Interval = (0, 0, 0, 500 / jeu.getLevel().CoefficientVitesse);
+            AffScore.Text = Convert.ToString(jeu.Score);
+            affNiveau.Text = jeu.getLevel().Nom;
+
         }
         public void DessinerForme()
         {

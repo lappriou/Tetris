@@ -25,15 +25,42 @@ namespace Tetris
 
         //Création des niveaux
 
-        Level level1 = new Level(5000, 0.10);
+        #region Level
+        Level level1 = new Level("Level 1",0, 1);
+        Level level2 = new Level("Level 2", 5000, 2);
+        Level level3 = new Level("Level 3", 10000, 3);
+        Level level4 = new Level("Level 4", 20000, 4);
+        List<Level> levels = new List<Level>();
 
-       
 
+        #endregion
         public List<string> ListeCouleur = new List<string> { "#3399ff", "#6C7F59", "#7E680B", "#FDD016", "#3A9649", "#47ce8e", "#8b7b8b", "#7b68ee", "#8b7e66", "#20b2aa","#1F6357","#f070de", "#d60a0a","#AED9BB", "#344138" };
 
 
+        // je n'arrive pas a remplir la liste dans la classe donc je fais dans une methode
+        public void RemplirListeNiveau()
+        {
+            levels.Add(level1);
+            levels.Add(level2);
+            levels.Add(level3);
+            levels.Add(level4);
+        }
 
+        public Level getLevel()
+        {
+            Level levelActuel = new Level();
+            for(int i = levels.Count()- 1; i >= 0; i--)
+            {
+                if(Score >= levels[i].ScoreADepasser)
+                {
+                    levelActuel = levels[i];
+                    return levelActuel;
+                }
 
+            }
+
+            return levelActuel;
+        }
         public etatBloc[,] grilleTetris;
 
         public Jeu_Tetris()
