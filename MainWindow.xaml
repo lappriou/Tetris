@@ -39,6 +39,16 @@
                 </TransformGroup>
             </Grid.RenderTransform>
         </Grid>
+        <TextBlock x:Name="GameOver" Margin="71,121.52,0,0" TextWrapping="WrapWithOverflow" Text="Game Over" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="60" Height="171.937" Width="331.492" FontFamily="Goudy Stout" FontWeight="ExtraBold" FontStyle="Italic" TextTrimming="CharacterEllipsis" FontStretch="Condensed" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="10" AngleY="5"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
 
     </Grid>
 </Window>

@@ -75,6 +75,8 @@ namespace Tetris
 
             formeSuivante = jeu.InitialiserForme();
             RemplirCanvas();
+            GameOver.Visibility = System.Windows.Visibility.Hidden;
+
 
         }
 
@@ -87,6 +89,8 @@ namespace Tetris
             if(jeu.GameOver == true)
             {
                 DescenteTimer.Stop();
+                GameOver.Foreground = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
+                GameOver.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -212,6 +216,7 @@ namespace Tetris
             forme = jeu.InitialiserForme();
             jeu.GameOver = false;
             DescenteTimer.Start();
+            GameOver.Visibility = System.Windows.Visibility.Hidden;
         }
 
         #region Commandes    
