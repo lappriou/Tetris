@@ -21,7 +21,8 @@ namespace Tetris
         public bool GameOver { get; set; }
         List<Forme> formes = new List<Forme>();
         int Id = 0;
-        public int Score { get; set; }
+        public int Score { get; set; } = 0;
+        
         
        
 

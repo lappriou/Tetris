@@ -77,6 +77,8 @@ namespace Tetris
             RemplirCanvas();
             GameOver.Visibility = System.Windows.Visibility.Hidden;
 
+            AffScore.Text = Convert.ToString(jeu.Score);
+
 
         }
 
@@ -102,6 +104,7 @@ namespace Tetris
                 EffacerForme();
                 forme.DeplacerEnBas();
                 DessinerForme();
+                AffScore.Text = Convert.ToString(jeu.Score);
             }
             else {
                 jeu.remplirGrille(forme);
@@ -111,6 +114,7 @@ namespace Tetris
                 RemplirCanvas();
                 jeu.VerifLigneComplete();
                 DessinerGrille();
+                AffScore.Text = Convert.ToString(jeu.Score);
             }
 
             
@@ -205,19 +209,6 @@ namespace Tetris
                     }
         }
 
-        private void buJouer_Click(object sender, RoutedEventArgs e)
-        {
- 
-            DescenteTimer.Stop();
-            GrilleJeu.Children.Clear();
-            jeu.initGrille();
-            //create Label
-            CouleurDefaut();
-            forme = jeu.InitialiserForme();
-            jeu.GameOver = false;
-            DescenteTimer.Start();
-            GameOver.Visibility = System.Windows.Visibility.Hidden;
-        }
 
         #region Commandes    
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -253,6 +244,19 @@ namespace Tetris
             }
         }
         #endregion
+
+        private void buJouer_Click(object sender, RoutedEventArgs e)
+        {
+            DescenteTimer.Stop();
+            GrilleJeu.Children.Clear();
+            jeu.initGrille();
+            //create Label
+            CouleurDefaut();
+            forme = jeu.InitialiserForme();
+            jeu.GameOver = false;
+            DescenteTimer.Start();
+            GameOver.Visibility = System.Windows.Visibility.Hidden;
+        }
     }
 }
 
