@@ -23,7 +23,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
         </Grid>
-        <TextBlock x:Name="GameOver" Margin="76.58,123.223,0,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="60" Height="409.474" Width="331.492" FontFamily="Goudy Stout" FontWeight="ExtraBold" FontStyle="Italic" TextTrimming="CharacterEllipsis" FontStretch="Condensed" RenderTransformOrigin="0.5,0.5">
+        <TextBlock x:Name="GameOver" Margin="51.58,108.223,0,0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="60" Height="409.474" Width="331.492" FontFamily="Goudy Stout" FontWeight="ExtraBold" FontStyle="Italic" TextTrimming="CharacterEllipsis" FontStretch="Condensed" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -35,8 +35,7 @@
         <Button x:Name="buJouer" Content="Recommencer" HorizontalAlignment="Right" Height="27.739" Margin="0,0,23.667,10" VerticalAlignment="Bottom" Width="136.666" Click="buJouer_Click"/>
         <TextBlock x:Name="Score" Height="20.5" Margin="0,0,127.167,82.572" TextWrapping="Wrap" Text="Score" VerticalAlignment="Bottom" Width="33.166" HorizontalAlignment="Right"/>
         <TextBox x:Name="AffScore" HorizontalAlignment="Right" Height="20.5" Margin="0,0,10,82.572" TextWrapping="Wrap" Text="{Binding jeu.Score}" VerticalAlignment="Bottom" Width="89.5" IsEnabled="False" TextAlignment="Right"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Right" Height="20" Margin="0,0,52.333,103.072" TextWrapping="Wrap" Text="Niveau" VerticalAlignment="Bottom" Width="108"/>
-        <TextBox x:Name="affNiveau" HorizontalAlignment="Right" Height="20" Margin="0,0,23.667,104.072" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Width="53" IsEnabled="False"/>
+        <TextBlock x:Name="affNiveau" HorizontalAlignment="Right" Height="35" Margin="0,0,10,118.072" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="150.333" TextAlignment="Center" FontSize="29.333" FontFamily="Segoe WP Black"/>
 
     </Grid>
 </Window>

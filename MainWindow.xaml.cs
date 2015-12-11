@@ -94,6 +94,8 @@ namespace Tetris
                 GameOver.Foreground = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
                 GameOver.Visibility = System.Windows.Visibility.Visible;
                 AfficherTextScoreNiveau();
+                DessinerGrilleTransparente();
+                
             }
         }
 
@@ -162,10 +164,34 @@ namespace Tetris
             }
         }
 
+        public void DessinerGrilleTransparente()
+        {
+            GrilleJeu.Children.Clear();
+            for (int l = 0; l < 20; l++)
+            {
+                for (int c = 0; c < 10; c++)
+                {
+                    if (jeu.grilleTetris[c, l].Id != null)
+                    {
+                        Label bloc = new Label();
+                        bloc.Background = new BrushConverter().ConvertFromString(jeu.grilleTetris[c, l].Couleur) as SolidColorBrush;
+                        bloc.Width = GrilleJeu.Width / 10;
+                        bloc.Height = GrilleJeu.Height / 20;
+                        bloc.Opacity = 0.50;
+                        Grid.SetColumn(bloc, c);
+                        Grid.SetRow(bloc, l);
+
+                        GrilleJeu.Children.Add(bloc);
+                    }
+                }
+            }
+        }
+
         public void AfficherTextScoreNiveau()
         {
-            //DescenteTimer.Interval = (0, 0, 0, 500 / jeu.getLevel().CoefficientVitesse);
+            DescenteTimer.Interval = new TimeSpan (0, 0, 0,0, 500 / jeu.getLevel().CoefficientVitesse);
             AffScore.Text = Convert.ToString(jeu.Score);
+            affNiveau.Foreground = new BrushConverter().ConvertFromString(forme.Couleur) as SolidColorBrush;
             affNiveau.Text = jeu.getLevel().Nom;
 
         }
