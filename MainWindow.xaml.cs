@@ -177,7 +177,7 @@ namespace Tetris
                         bloc.Background = new BrushConverter().ConvertFromString(jeu.grilleTetris[c, l].Couleur) as SolidColorBrush;
                         bloc.Width = GrilleJeu.Width / 10;
                         bloc.Height = GrilleJeu.Height / 20;
-                        bloc.Opacity = 0.50;
+                        bloc.Opacity = 0.30;
                         Grid.SetColumn(bloc, c);
                         Grid.SetRow(bloc, l);
 
